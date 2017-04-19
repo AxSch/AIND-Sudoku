@@ -137,7 +137,22 @@ def eliminate(values):
 
 
 def only_choice(values):
-    pass
+    """
+    Takes parameter values - in the form of a dictionary
+    Goes through all units in the unitList, if unit has only one possible value
+    Assign that value to that box
+    returns the updated Sudoku dictionary - values
+    """
+    for unit in unitList:
+        for d in '123456789':
+            final_spot = []
+            for box in unit:
+                if d in values[box]:
+                    final_spot.append(box)
+            if len(final_spot) == 1:
+                assign_value(values,final_spot[0], d)
+
+    return values
 
 
 def reduce_puzzle(values):
