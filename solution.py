@@ -156,7 +156,42 @@ def only_choice(values):
 
 
 def reduce_puzzle(values):
-    pass
+    """
+    Takes parameter values - in the form of a dictionary
+    Checks to the dictionary for solved boxes
+    Calls eliminate function to remove these values from its peers
+    Calls only_choice function to assign this singular value to a box
+    Performs check for how many boxes are solved
+    The above is performed in a loop, exits if counter becomes true
+    returns the updates Sudoku dictionary - values
+    """
+    solved = [box for box in values.keys() if len(values[box])]
+    counter = False
+    while not counter:
+        before = [] #list containing values before
+        for box in values.keys():
+            if len(values[box]) == 1:
+                before.append(box)
+        solved_before = len(before)
+        # Call to eliminate function
+        values = eliminate(values)
+        # Call to naked_twins function
+        #values = naked_twins(values)
+        # Call to only_choice function
+        values = only_choice(values)
+
+        after = []#list containing values after
+        for box in values.keys():
+            if len(values[box]) == 1:
+                after.append(box)
+        solved_after = len(after)
+
+        # Check to break the loop, counter becomes not true -> False
+        counter = solved_before == solved_after
+        #Sanity check, if box has no available values return false
+        if len([box for box in values.keys() if len(values[box]) == 0]):
+            return False
+    return values
 
 
 def search(values):
