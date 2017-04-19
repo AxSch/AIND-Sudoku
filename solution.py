@@ -33,7 +33,8 @@ def naked_twins(values):
 
 
 def cross(A, B):
-    "Cross product of elements in A and elements in B."
+    """Cross product of elements in A and elements in B.
+     - helper function to build grid"""
     new_list = []
     for s in A:
         for t in B:
@@ -89,7 +90,17 @@ def grid_values(grid):
             Keys: The boxes, e.g., 'A1'
             Values: The value in each box, e.g., '8'. If the box has no value, then the value will be '123456789'.
     """
-    pass
+    flag = [] # A list for values and empties
+    nums = '123456789'
+    for c in grid:
+        if c == '.':
+            flag.append(nums) # Appends nums for '.' - empties
+
+        elif c in nums:
+            flag.append(c) # Appends the found value
+    assert len(grid) == 81
+    return dict(zip(boxes, flag))
+    # returns the dictionary with the Keys(boxes) and Values(flag)
 
 
 def display(values):
