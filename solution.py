@@ -1,5 +1,8 @@
 assignments = []
 
+rows = 'ABCDEFGHI'
+cols = '123456789'
+
 def assign_value(values, box, value):
     """
     Please use this function to update your values dictionary!
@@ -15,6 +18,7 @@ def assign_value(values, box, value):
         assignments.append(values.copy())
     return values
 
+
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
     Args:
@@ -27,9 +31,53 @@ def naked_twins(values):
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
 
+
 def cross(A, B):
     "Cross product of elements in A and elements in B."
-    pass
+    new_list = []
+    for s in A:
+        for t in B:
+            new_list.append(s + t)# Covers all possible combinations of A + B
+    return new_list
+
+boxes = cross(rows,cols) # Creates boxes using cross function
+
+row_units = [] # Assigning rows to their respective units
+for r in rows:
+    row_units.append(cross(r,cols))
+
+col_units = [] # Assigning cols to their respective units
+for c in cols:
+    col_units.append(cross(rows,c))
+
+square_units = [] # Assigning square units(3x3)
+for rs in ('ABC', 'DEF', 'GHI'):
+    for cs in ('123', '456', '789'):
+        square_units.append(cross(rs,cs))
+
+# Diagonal Implementation
+diag_unitR2L = [] # Assigning diagonal right unit
+for s in zip(rows,cols):
+    # used boxes formula, couldn't understand why I couldn't iterate through boxes
+    diag_unitR2L.append(s[0] + s[1])
+
+diag_unitL2R = [] # Assigning diagonal left unit
+for s in zip(rows,reversed(cols)):
+    # reverses rows for left to right row
+    diag_unitL2R.append(s[0] + s [1])
+
+# Combining the two diagionals in to one
+diag_units = [diag_unitR2L, diag_unitL2R]
+
+unitList = row_units + col_units + square_units + diag_units
+# A list of all units required for diagonal sudoku, remove '+ diag_units' for standard
+
+units = dict((s,[u for u in unitList if s in u])
+             for s in boxes)
+
+peers = dict((s, set(sum(units[s],[])) - set([s]))
+             for s in boxes)
+
 
 def grid_values(grid):
     """
@@ -43,6 +91,7 @@ def grid_values(grid):
     """
     pass
 
+
 def display(values):
     """
     Display the values as a 2-D grid.
@@ -51,17 +100,22 @@ def display(values):
     """
     pass
 
+
 def eliminate(values):
     pass
+
 
 def only_choice(values):
     pass
 
+
 def reduce_puzzle(values):
     pass
 
+
 def search(values):
     pass
+
 
 def solve(grid):
     """
