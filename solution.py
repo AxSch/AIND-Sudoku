@@ -195,7 +195,27 @@ def reduce_puzzle(values):
 
 
 def search(values):
-    pass
+    """
+    Using Depth-First Search Algorithm and propagation
+    Creates a tree to solve the sudoku
+    :param values:
+    :return: values
+    """
+    # Call to reduce_puzzle function to reduce the puzzle's possible values for each box
+    values = reduce_puzzle(values)
+    if values is False:
+        return False
+    if all(len(values[s]) == 1 for s in boxes):
+        return values
+    # Pick one unfilled box with the fewest possible values
+    n,s = min((len(values[s]),s)for s in boxes if len(values[s]) > 1)
+    # Recursive call to solve each one of the updated sudokus - if one returns a value return that one
+    for val in values[s]:
+        sudoku_new = values.copy()
+        sudoku_new[s] = val
+        attempt = search(sudoku_new)
+        if attempt:
+            return attempt
 
 
 def solve(grid):
