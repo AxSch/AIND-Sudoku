@@ -119,7 +119,21 @@ def display(values):
 
 
 def eliminate(values):
-    pass
+    """
+    Takes parameter values - in the form of a dictionary
+    flag cannot contain the same value as peers
+    eliminates this single value from its peers
+    returns the updated Sudoku dictionary - values
+    """
+    flag = []
+    for box in values.keys():
+        if len(values[box]) == 1: # if changed to 2 would that equate to twin-snakes?
+            flag.append(box)
+    for box in flag:
+        for peer in peers[box]:
+            #values[peer] = values[peer].replace(values[box], '')# removes value and replaces it with ''
+            assign_value(values, peer, values[peer].replace(values[box], ''))
+    return values
 
 
 def only_choice(values):
