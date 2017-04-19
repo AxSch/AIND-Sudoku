@@ -3,11 +3,16 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: We use constraint propagation to limit the number of available possible values within its peers.
+This constraint is takes into account the unit in which the set of twins appear. If they appear multiples times in the unit,
+then they would still become unavailable to the twins peers but also that the only_choice function will solve the issue of which box has which singular value.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: Here constraint propagation is used to help solve diagonal sudoku by reduction of the number of possible boxes that are considered diagonal within the grid.
+ This meant each box used in solving the diagonal had to be known beforehand in order to reduce possibilities. 
+ By doing this it meant that diagonal boxes were also considered peers to other boxes so therefore if a diagonal box has been solved,
+ then that value is removed from its peers, thus helping reduce the number of probable values for each box in the puzzle.
 
 ### Install
 
