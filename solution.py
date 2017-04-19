@@ -38,13 +38,13 @@ def naked_twins(values):
         for ptwin in unit_boxes:
             if unit_boxes.count(ptwin) == 2 and len(ptwin) == 2: #Constraints to check for possible twins
                 twins.append(ptwin)
-        print twins # Check that twins have been added to the list
+        print(twins) # Check that twins have been added to the list
         for twin in twins:
             for d in twin: #the value of twin
                 for peer in unit:# check peers within the unit
                     if values[peer] != twin: # check to remove twins in peer
                         assign_value(values, peer, values[peer].replace(d, ''))
-    print twins
+    print(twins)
     return values
 
 
@@ -192,7 +192,7 @@ def reduce_puzzle(values):
         # Call to eliminate function
         values = eliminate(values)
         # Call to naked_twins function
-        #values = naked_twins(values)
+        values = naked_twins(values)
         # Call to only_choice function
         values = only_choice(values)
 
